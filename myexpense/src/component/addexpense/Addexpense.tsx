@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-const AddExpense: React.FC = () => {
+const Addexpense :React.FC = () => {
   return (
-    <>
-      This is my add expense page.
-    </>
-  );
-};
+    <div>
+      here you can add your expense
+    </div>
+  )
+}
 
-export default AddExpense;
+export default  Addexpense;
