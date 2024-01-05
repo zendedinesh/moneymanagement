@@ -8,7 +8,7 @@ import Login from './component/login/Login';
 // import Addexpense from './component/expenselist/Expenselist';
 // import Searchexpense from './component/searchexpense/Checkmoney';
 import Checkmoney from './component/checkmoney/Checkmoney';
-import Expenselist from './component/expenselist/Expenselist';
+// import Expenselist from './component/expenselist/Expenselist';
 import Addexpense from './component/addexpense/Addexpense';
 import Aditexpense from './component/aditexpense/Aditexpense';
 
@@ -21,7 +21,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         {/* <Route path='addexpense' element={<Addexpense />} /> */}
         <Route path='/checkmoney' element={<Checkmoney/>}/>
-        <Route path='/expenselist' element={<Expenselist/>}/>
+        {/* <Route path='/expenselist' element={<Expenselist/>}/> */}
         <Route path='/addexpensein' element={<Addexpense/>}/>
         <Route path ='/aditexpense' element={<Aditexpense/>}/>
 
