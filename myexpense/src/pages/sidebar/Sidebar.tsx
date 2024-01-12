@@ -117,7 +117,7 @@
 //     // }
 //     // <ListItemButton key={index} onClick={()=>directnavigatetologinname(item, index)}>
 import React, { useContext } from 'react';
-import { AppBar, Box, Card, Drawer, Grid, List, ListItemButton, ListItemIcon, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography, } from '@mui/material';
+import { AppBar, Box, Button, Card, Drawer, Grid, List, ListItemButton, ListItemIcon, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Typography, } from '@mui/material';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -130,7 +130,7 @@ import { useNavigate } from 'react-router-dom';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { MyContext } from '../toggle/Toggle';
-import Addexpense from '../addexpense/Addexpense';
+// import Addexpense from '../addexpense/Addexpense';
 // import AddExpense from '../expenselist/Expenselist';
 // import Expenselist from '../expenselist/Expenselist';
 import MoneyIcon from '@mui/icons-material/Money';
@@ -195,6 +195,8 @@ const tablearr: tabledata[] = [
 ]
 const Sidebar: React.FC = () => {
 
+
+
     const { toggle, click } = useContext(MyContext)
 
     const navigatethroughnames = useNavigate();
@@ -209,42 +211,48 @@ const Sidebar: React.FC = () => {
         if (item.name === 'Check Money') {
             navigatethroughnames('/checkmoney')
         }
-        if (item.name === 'Adit expense') {
-            navigatethroughnames('/aditexpense')
-        }
+        // if (item.name === 'Adit expense') {
+        //     navigatethroughnames('/aditexpense')
+        // }
         // if (item.name === 'Expenselist') {
         //     navigatethroughnames('/expenselist')
         // }
+        if (item.name === 'Dashboard') {
+            navigatethroughnames('/')
+        }
+        if (item.name === 'Register') {
+            navigatethroughnames('/register')
+        }
     };
 
     const arr: SidebarItem[] = [
         {
-            name: 'dashboard',
-            myicon: <DashboardIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+            name: 'Dashboard',
+            myicon: <DashboardIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
         {
             name: 'Add expense',
-            myicon: <AddBoxIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+            myicon: <AddBoxIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
         // {
         //     name: 'Expenselist',
         //     myicon: <MoneyIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
         // },
-        {
-            name: 'Check Money',
-            myicon: <CurrencyExchangeIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
-        },
-        {
-            name: 'Adit expense',
-            myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
-        },
+        // {
+        //     name: 'Check Money',
+        //     myicon: <CurrencyExchangeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+        // },
+        // {
+        //     name: 'Adit expense',
+        //     myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+        // },
         {
             name: 'Register',
-            myicon: <LogoutIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+            myicon: <LogoutIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
         {
             name: 'Login',
-            myicon: <LoginIcon sx={{ fontSize: { md: '30px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+            myicon: <LoginIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
 
     ];
@@ -265,20 +273,20 @@ const Sidebar: React.FC = () => {
         position: { xs: 'fixed', md: 'sticky', sm: 'fixed' },
         top: '0',
         display: { xs: 'block', md: 'block', sm: 'block' },
-        zIndex: '2'
+        zIndex: '10'
 
     };
 
     const names = {
         color: 'white',
-        fontSize: { xs: '18px', md: '18px', sm: '25px' }
+        fontSize: { xs: '18px', md: '16px', sm: '25px' }
     };
 
 
     const add = {
         width: '95%',
         margin: 'auto',
-        backgroundColor: '#E7ECEF',
+        backgroundColor: '',
         marginBottom: { xs: '10px', sm: '10px', md: '10px' },
         // borderRadius: '15px',
         // boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
@@ -304,7 +312,7 @@ const Sidebar: React.FC = () => {
     }
     const cardandlist = {
         // height: '100vh',
-        backgroundColor: '#f5f5f6'
+        backgroundColor: '#0f1618'
     }
     const mysalary = {
         display: 'flex',
@@ -351,6 +359,34 @@ const Sidebar: React.FC = () => {
         padding: '20px',
         height: '80px',
         margin: '20px',
+    }
+    const stext = {
+        fontSize: '17px',
+        fontWeight: 'bold',
+        padding: '10px',
+        borderRadius: '15px',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
+        width: '97.2%',
+        textAlign: 'center',
+        marginTop: '10px',
+        marginBottom: '10px'
+
+    }
+    const extype = {
+        fontSize: { xs: '14px', sm: '18px', md: '15px' },
+        borderRadius: '10px',
+        // boxShadow: '0px  2px 10px rgba(0, 0, 0, 0.1)',
+        textAlign: 'center',
+        padding: '10px',
+        marginTop: '10px'
+    }
+    const exmon = {
+        fontSize: { xs: '14px', sm: '18px', md: '15px' },
+        borderRadius: '10px',
+        // boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
+        textAlign: 'center',
+        padding: '10px',
+        marginTop: '10px'
     }
     return (
         <>
@@ -414,16 +450,62 @@ const Sidebar: React.FC = () => {
                         </Box>
                         <Box>
                             <Card sx={add}>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
+                                    <Card sx={{ height: { xs: '380px', sm: '450px', md: '250px' }, width: '80%', backgroundColor: '#E7ECEF' }}>
+                                        <Box><Typography sx={stext}>Search Expense</Typography></Box>
+                                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                                            <TextField size='small' placeholder='Enter Category  To Search' sx={{ width: '85%' }} inputProps={{
+
+                                                sx: {
+                                                    fontSize: '14px'
+                                                }
+                                            }}></TextField>
+                                        </Box>
+                                        <Box>
+                                            <Grid container sx={{ margin: { xs: '20px 17px', md: '20px 55px', sm: '20px 40px' } }}>
+                                                <Grid item md={6} xs={12}>
+                                                    <Paper sx={{ backgroundColor: '', height: { xs: '100px', sm: '120px', md: '100px' }, width: { md: '70%', xs: '85%', sm: '85%' }, marginBottom: { xs: '15px', sm: '10px', md: '0' } }}>
+                                                        <Box>
+                                                            <Typography sx={extype}>  Expense Date
+                                                            </Typography>
+                                                            <TextField placeholder='Search Expense Type' size='small' sx={{ paddingLeft: { xs: '10px', md: '13px', sm: '20px' }, width: { xs: '90%', sm: '90%', md: '90%' } }} inputProps={{
+
+                                                                sx: {
+                                                                    height: { xs: '12px', sm: '25px', md: '15px' },
+                                                                    fontSize: { xs: '11px', sm: '16px', md: '12px' }
+                                                                }
+                                                            }}></TextField>
+                                                        </Box>
+                                                    </Paper>
+                                                </Grid>
+                                                <Grid item md={6} xs={12}>
+                                                    <Paper sx={{ backgroundColor: '', height: { xs: '100px', sm: '120px', md: '100px' }, width: { md: '70%', xs: '85%', sm: '85%' }, marginBottom: { xs: '15px', sm: '10px', md: '0' } }}>
+                                                        <Box>
+                                                            <Typography sx={exmon}>  Expense Month </Typography>
+                                                            <TextField placeholder='Search Expense Month' size='small' sx={{ paddingLeft: { xs: '10px', md: '13px', sm: '20px' }, width: { xs: '90%', sm: '90%', md: '90%' } }} inputProps={{
+
+                                                                sx: {
+                                                                    height: { xs: '12px', sm: '25px', md: '15px' },
+                                                                    fontSize: { xs: '11px', sm: '16px', md: '12px' }
+                                                                }
+                                                            }} ></TextField>
+                                                        </Box></Paper>
+                                                </Grid>
+                                            </Grid>
+                                        </Box>
+                                    </Card>
+                                </Box>
                                 <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}> <Typography sx={expense}>Expense List</Typography></Box>
 
-                                <TableContainer>
+                                <TableContainer >
                                     <Table  >
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Expense Type</TableCell>
+                                                <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Descreption</TableCell>
                                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}> Expense Date</TableCell>
                                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Expense Amount </TableCell>
-                                                <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Description</TableCell>
+                                                {/* <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Expense Type </TableCell> */}
+                                                <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Categories</TableCell>
                                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Edit</TableCell>
                                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '13px' }, textWrap: { xs: 'nowrap' } }}>Delete</TableCell>
                                             </TableRow>

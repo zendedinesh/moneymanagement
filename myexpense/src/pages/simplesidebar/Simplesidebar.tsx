@@ -9,9 +9,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { MyContext } from '../toggle/Toggle';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 const Simplesidebar: React.FC = () => {
 
     const { toggle, click } = useContext(MyContext)
+    console.log(toggle)
 
     const navigatethroughnames = useNavigate();
     const directnavigationthroughname = (item: SidebarItem, num: number) => {
@@ -25,11 +27,17 @@ const Simplesidebar: React.FC = () => {
         if (item.name === 'Check Money') {
             navigatethroughnames('/checkmoney')
         }
-        if (item.name === 'Adit expense') {
-            navigatethroughnames('/aditexpense')
+        // if (item.name === 'Adit expense') {
+        //     navigatethroughnames('/aditexpense')
+        // }
+        // if (item.name === 'Expenselist') {
+        //     navigatethroughnames('/expenselist')
+        // }
+        if (item.name === 'Dashboard') {
+            navigatethroughnames('/')
         }
-        if (item.name === 'Expenselist') {
-            navigatethroughnames('/expenselist')
+        if (item.name === 'Register') {
+            navigatethroughnames('/register')
         }
     };
     interface SidebarItem {
@@ -39,32 +47,32 @@ const Simplesidebar: React.FC = () => {
     }
     const arr: SidebarItem[] = [
         {
-            name: 'dashboard',
-            myicon: <DashboardIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
+            name: 'Dashboard',
+            myicon: <DashboardIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
         {
             name: 'Add expense',
-            myicon: <AddBoxIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
+            myicon: <AddBoxIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
-        {
-            name: 'Expenselist',
-            myicon: <MoneyIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
-        },
-        {
-            name: 'Check Money',
-            myicon: <CurrencyExchangeIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
-        },
-        {
-            name: 'Adit expense',
-            myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
-        },
+        // {
+        //     name: 'Expenselist',
+        //     myicon: <MoneyIcon  sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' },  color: 'white'  }} />,
+        // },
+        // {
+        //     name: 'Check Money',
+        //     myicon: <CurrencyExchangeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+        // },
+        // {
+        //     name: 'Adit expense',
+        //     myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+        // },
         {
             name: 'Register',
-            myicon: <LogoutIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
+            myicon: <LogoutIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
         {
             name: 'Login',
-            myicon: <LoginIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
+            myicon: <LoginIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         },
 
     ];
@@ -80,21 +88,25 @@ const Simplesidebar: React.FC = () => {
     const sidebar = {
         height: '100vh',
         backgroundColor: '#212529',
-        width: '100%',
-        position: 'sticky',
-        top: '0'
+        top: '0',
+        width: { xs: '100vw', md: '100%', sm: '100vw' },
+        // width:'40%',
+        position: { xs: 'fixed', md: 'sticky', sm: 'fixed' },
+        // top: '0',
+        display: { xs: 'block', md: 'block', sm: 'block' },
+        // zIndex: '100'
 
     };
 
     const names = {
         color: 'white',
-        fontSize: '15px',
+        fontSize: { xs: '18px', md: '16px', sm: '25px' }
     };
     return (
         <>
             <Box sx={{ display: 'flex', position: 'sticky', top: '0' }}>
                 {toggle ?
-                    <Box sx={{ width: '100%', height: '100vh', backgroundColor: '#212529' }}>
+                    <Box sx={{ width: '100%', height: '100vh', backgroundColor: '#212529', display: { xs: 'none', md: 'block', sm: 'none' } }}>
                         <List>
                             {arr.map((item, index) => (
                                 <ListItemButton key={index} onClick={() => directnavigationthroughname(item, index)}>
@@ -111,6 +123,7 @@ const Simplesidebar: React.FC = () => {
                     </Box >
                     :
                     <Box sx={sidebar}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', margin: '20px 10px' }}><Typography sx={{ textWrap: 'nowrap', color: 'white', fontSize: { md: '20px', xs: '30px', sm: '50px' } }} > Money Tracker App</Typography>  <CloseIcon onClick={click} sx={{ display: { xs: 'block', md: 'none', sm: 'block' }, color: 'white', fontSize: { xs: '40px', sm: '80px' } }} /> </Box >
                         <List>
                             {arr.map((item, index) => (
                                 <ListItemButton key={index} onClick={() => directnavigationthroughname(item, index)}>
