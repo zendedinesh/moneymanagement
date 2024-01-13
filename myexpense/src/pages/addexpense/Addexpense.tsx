@@ -65,10 +65,9 @@ const Addexpense: React.FC = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
-        <Simplesidebar />
+     
         <Box sx={{ position: 'static', width: '100%' }}>
-          <Appbar />
+          {/* <Appbar /> */}
           <Box
             sx={{
               height: { xs: '80vh', sm: '100vh', md: '100vh' },
@@ -222,7 +221,7 @@ const Addexpense: React.FC = () => {
             </Card>
           </Box>
         </Box>
-      </Box>
+     
     </>
   );
 };

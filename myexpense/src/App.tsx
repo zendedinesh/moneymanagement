@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Sidebar from './pages/sidebar/Sidebar';
 import Appbar from './pages/appbar/Appbar';
 import Login from './pages/login/Login';
@@ -12,22 +12,28 @@ import Checkmoney from './pages/checkmoney/Checkmoney';
 import Addexpense from './pages/addexpense/Addexpense';
 import Aditexpense from './pages/aditexpense/Aditexpense';
 import Register from './pages/register/Register';
+import Layout from './pages/Layout/Layout';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   return (
     < >
       <Routes>
-        <Route path='/' element={<Sidebar />} />
-        <Route path='/appbar' element={<Appbar />} />
         <Route path='/login' element={<Login />} />
-        {/* <Route path='addexpense' element={<Addexpense />} /> */}
-        <Route path='/checkmoney' element={<Checkmoney />} />
-        {/* <Route path='/expenselist' element={<Expenselist/>}/> */}
-        <Route path='/addexpensein' element={<Addexpense />} />
-        <Route path='/aditexpense' element={<Aditexpense />} />
-        {/* <Route path='Dashboard' element={<Sidebar/>}/> */}
         <Route path='/register' element={<Register />} />
-      </Routes>
+        <Route path='/' element={<Layout />} >
+          <Route index element={<Dashboard />} />
+          <Route path='dashboard' element={<Dashboard />} />
+         
+          {/* <Route path='addexpense' element={<Addexpense />} /> */}
+          <Route path='checkmoney' element={<Checkmoney />} />
+          {/* <Route path='/expenselist' element={<Expenselist/>}/> */}
+          <Route path='addexpensein' element={<Addexpense />} />
+          <Route path='aditexpense' element={<Aditexpense />} />
+          {/* <Route path='Dashboard' element={<Sidebar/>}/> */}
+        </Route>
+
+      </Routes >
     </>
   )
 }
