@@ -2,8 +2,8 @@
 import React, { ReactNode } from 'react';
 import { useState } from 'react';
 import { Box, Button, Card, InputLabel, TextField, Typography } from '@mui/material';
-import Simplesidebar from '../simplesidebar/Simplesidebar';
-import Appbar from '../appbar/Appbar';
+// import Simplesidebar from '../simplesidebar/Simplesidebar';
+// import Appbar from '../appbar/Appbar';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 
 
@@ -50,7 +50,7 @@ const Addexpense: React.FC = () => {
 
   const ae = {
     fontWeight: 'bold',
-    color: '#333',
+    color: 'white',
     marginBottom: '10px',
     textAlign: 'center',
     fontSize: { xs: '15px', sm: '20px', md: '17px' },
@@ -80,7 +80,7 @@ const Addexpense: React.FC = () => {
                 height: { xs: '91vh', sm: '80vh', md: '80vh' },
                 margin: 'auto',
                 width: { xs: '100%', sm: '80%', md: '60%' },
-                backgroundColor: 'lightgrey',
+                background: 'white',
               }}
             >
               <Typography sx={ae}>Add Expense</Typography>

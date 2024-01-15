@@ -1,35 +1,83 @@
-import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom'
-import Sidebar from '../sidebar/Sidebar'
-import './Layout.css'
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../sidebar/Sidebar';
 import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+
 const Layout: React.FC = () => {
+    const mainWrapper = {
+        display: 'flex',
+        width: '100vw',
+        height: '100vh',
+        /* overflow: hidden; */
+    };
+
+    const sidebar = {
+        // width: '200px',
+        // /* min-width: 200px */
+        // transition: 'all 0.3s ease-in-out',
+    };
+
+    const contentContainer = {
+        display: 'flex',
+        flexGrow: 1,
+        /* min-width: 1000px; */
+        flexDirection: 'column',
+        width: 'calc(100% - 200px)',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    };
+
+    const topbar = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        padding: '0 20px',
+        height: '80px',
+        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+        /* color: 'white'; */
+    };
+
+    const burgerMenu = {
+        backgroundColor: 'transparent',
+        border: 'none',
+    };
+
+    const pageContainer = {
+        height: 'calc(100vh - 80px)',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        overflow: 'auto',
+        backgroundColor: '#0f1618',
+        /* padding: 10px; */
+    };
 
     const [toggle, setToggle] = useState(true);
+
     return (
-        <main className='mainWrapper'>
-            <div className='sidebar' style={{ width: toggle ? "200px" : "60px" }}>
+        <Box sx={mainWrapper}>
+            <Box sx={{ width: toggle ? { xs: '100%', md: '200px' } : { xs: '0px', md: '60px' }, transition: 'all 0.3s ease-in-out', }}>
                 <Sidebar toggle={toggle} />
-            </div>
+            </Box>
 
-            <div className='contentContainer'>
+            <Box sx={contentContainer}>
+                <Box sx={topbar}>
+                    <Typography className='burgerMenu' onClick={() => setToggle((prev) => !prev)}>
+                        <MenuIcon />
+                    </Typography>
 
-                <div className='topbar'>
-                    <button className='burgerMenu' onClick={() => setToggle((prev) => !prev)}><MenuIcon /></button>
+                    <Box>user</Box>
+                </Box>
 
-                    <div>
-                        Account Name
-                    </div>
-                </div >
-
-                <div className='pageContainer'>
+                <Box sx={pageContainer}>
                     <Outlet />
+                </Box>
+            </Box>
+        </Box>
+    );
+};
 
-                </div>
-            </div>
-
-        </main>
-    )
-}
-
-export default Layout
+export default Layout;

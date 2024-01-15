@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import Sidebar from './pages/sidebar/Sidebar';
-import Appbar from './pages/appbar/Appbar';
+// import Appbar from './pages/appbar/Appbar';
 import Login from './pages/login/Login';
 // import Addexpense from './component/expenselist/Expenselist';
 // import Searchexpense from './component/searchexpense/Checkmoney';
@@ -12,9 +12,9 @@ import Checkmoney from './pages/checkmoney/Checkmoney';
 import Addexpense from './pages/addexpense/Addexpense';
 import Aditexpense from './pages/aditexpense/Aditexpense';
 import Register from './pages/register/Register';
-import Layout from './pages/Layout/Layout';
-import Dashboard from './pages/Dashboard/Dashboard';
-
+import Layout from './pages/layout/Layout';
+import Dashboard from './pages/dashboard/Dashboard';
+     
 function App() {
   return (
     < >

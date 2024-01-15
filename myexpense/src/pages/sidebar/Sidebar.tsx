@@ -8,11 +8,11 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 // import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import Appbar from '../appbar/Appbar';
+// import Appbar from '../appbar/Appbar';
 import { useNavigate } from 'react-router-dom';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import { MyContext } from '../toggle/Toggle';
+// import { MyContext } from '../toggle/Toggle';
 // import Addexpense from '../addexpense/Addexpense';
 // import AddExpense from '../expenselist/Expenselist';
 // import Expenselist from '../expenselist/Expenselist';
@@ -25,14 +25,10 @@ interface SidebarItem {
 
 }
 
-interface sideBarProps {
+interface SideBarProps {
     toggle: boolean
 }
-const Sidebar: React.FC<sideBarProps> = ({ toggle }) => {
-
-
-
-
+const Sidebar: React.FC<SideBarProps> = ({ toggle }) => {
 
     const navigatethroughnames = useNavigate();
     const directnavigationthroughname = (item: SidebarItem, num: number) => {
@@ -63,11 +59,11 @@ const Sidebar: React.FC<sideBarProps> = ({ toggle }) => {
     const arr: SidebarItem[] = [
         {
             name: 'Dashboard',
-            myicon: <DashboardIcon sx={{ fontSize:'28px', color: 'white' }} />,
+            myicon: <DashboardIcon sx={{ fontSize: '28px', color: 'white' }} />,
         },
         {
             name: 'Add expense',
-            myicon: <AddBoxIcon sx={{ fontSize:'28px', color: 'white' }} />,
+            myicon: <AddBoxIcon sx={{ fontSize: '28px', color: 'white' }} />,
         },
         // {
         //     name: 'Expenselist',
@@ -83,11 +79,11 @@ const Sidebar: React.FC<sideBarProps> = ({ toggle }) => {
         // },
         {
             name: 'Register',
-            myicon: <LogoutIcon sx={{ fontSize:'28px', color: 'white' }} />,
+            myicon: <LogoutIcon sx={{ fontSize: '28px', color: 'white' }} />,
         },
         {
             name: 'Login',
-            myicon: <LoginIcon sx={{ fontSize:'28px', color: 'white' }} />,
+            myicon: <LoginIcon sx={{ fontSize: '28px', color: 'white' }} />,
         },
 
     ];
@@ -121,43 +117,42 @@ const Sidebar: React.FC<sideBarProps> = ({ toggle }) => {
 
     return (
         <>
+            <Box sx={{ width: "100%", height: '100%', backgroundColor: '#212529'}}>
 
+                <Box  >
 
-            <Box sx={{ width: "100%", height: '100%', backgroundColor: '#212529' }}>
-                <Box sx={{ height: "80px", width: "100%", display: "flex", flexDirection: "column", gap: "5px", padding: "10px" }}>
-
-                    {
-                        !toggle ?
-                            <Typography variant='h5' sx={{ color: "white", fontSize: "20px", margin: "0" }}>MM</Typography>
+                    <Box sx={{ height: "80px", width: "100%", display: "flex", flexDirection: "column", gap: "5px", padding: "10px" }}>
+                        {toggle ?
+                            <Typography variant='h5' sx={{ color: "white", fontSize: "17px", textWrap: 'nowrap', marginTop: '15px' }}>Money Management App</Typography>
                             :
-                            <>
-                                <Typography variant='h5' sx={{ color: "white", fontSize: "20px", margin: "0" }}>Money Monitor</Typography>
+                            <Typography variant='h5' sx={{ color: "white", fontSize: "20px", margin: "0" }}> M M</Typography>
 
-                                <Typography variant='h6' sx={{ color: "white", fontSize: "14px" }}>This is Subtitle</Typography>
-                            </>
-                    }
+                        }
+                    </Box>
+                    <Box >
+                        <List>
+                            {arr.map((item, index) => (
+                                <ListItemButton key={index} onClick={() => directnavigationthroughname(item, index)}>
+                                    <ListItemIcon>
+                                        <Box sx={{ display: "flex", alignContent: "center", justifyContent: "center", gap: "10px" }}>
+                                            <Typography >{item.myicon}</Typography>
+
+                                            {toggle &&
+                                               
+                                                    <Typography sx={names}>{item.name}</Typography>
+                                            }
+
+                                        </Box>
+                                    </ListItemIcon>
+                                    <ListItemText></ListItemText>
+                                </ListItemButton>
+                            ))}
+                        </List>
+                    </Box>
+
                 </Box>
-                <List>
-                    {arr.map((item, index) => (
-                        <ListItemButton key={index} onClick={() => directnavigationthroughname(item, index)}>
-                            <ListItemIcon>
-                                <Box sx={{ display: "flex", alignContent: "center", justifyContent: "center", gap: "10px" }}>
-                                    <Typography>{item.myicon}</Typography>
-                                    {
-                                        toggle &&
-                                        <Typography sx={names}>{item.name}</Typography>
-                                    }
-                                </Box>
-                            </ListItemIcon>
-                            <ListItemText></ListItemText>
-                        </ListItemButton>
-                    ))}
-                </List>
             </Box>
-
-
         </>
     );
-};
-
+}
 export default Sidebar;
