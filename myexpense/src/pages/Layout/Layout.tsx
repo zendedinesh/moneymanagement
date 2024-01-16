@@ -26,6 +26,7 @@ const Layout: React.FC = () => {
         width: 'calc(100% - 200px)',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
+        zIndex:'100'
     };
 
     const topbar = {
@@ -34,7 +35,7 @@ const Layout: React.FC = () => {
         alignItems: 'center',
         width: '100%',
         padding: '0 20px',
-        height: '80px',
+        height: '60px',
         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
         /* color: 'white'; */
     };
@@ -59,13 +60,13 @@ const Layout: React.FC = () => {
 
     return (
         <Box sx={mainWrapper}>
-            <Box sx={{ width: toggle ? { xs: '100%', md: '200px' } : { xs: '0px', md: '60px' }, transition: 'all 0.3s ease-in-out', }}>
+            <Box sx={{ width: toggle ? { xs: '100%', md: '200px' } : { xs: '0px', md: '50px' }, transition: 'all 0.3s ease-in-out', position:{xs:'fixed',md:'sticky'}, height:'100vh', }}>
                 <Sidebar toggle={toggle} />
             </Box>
 
             <Box sx={contentContainer}>
                 <Box sx={topbar}>
-                    <Typography className='burgerMenu' onClick={() => setToggle((prev) => !prev)}>
+                    <Typography  onClick={() => setToggle((prev) => !prev)}>
                         <MenuIcon />
                     </Typography>
 

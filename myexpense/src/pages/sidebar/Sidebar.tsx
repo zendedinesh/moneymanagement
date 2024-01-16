@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppBar, Box, Button, Card, Drawer, Grid, List, ListItemButton, ListItemIcon, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Typography, } from '@mui/material';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -28,7 +28,9 @@ interface SidebarItem {
 interface SideBarProps {
     toggle: boolean
 }
-const Sidebar: React.FC<SideBarProps> = ({ toggle }) => {
+const Sidebar: React.FC<SideBarProps> = ({ }) => {
+
+    const [toggle, setToggle] = useState(true);
 
     const navigatethroughnames = useNavigate();
     const directnavigationthroughname = (item: SidebarItem, num: number) => {
@@ -67,7 +69,7 @@ const Sidebar: React.FC<SideBarProps> = ({ toggle }) => {
         },
         // {
         //     name: 'Expenselist',
-        //     myicon: <MoneyIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />,
+        //     myicon: <MoneyIcon sx={{ fontSize: { md: '35px' }, color: '#7a7e7d' }} />, 
         // },
         // {
         //     name: 'Check Money',
@@ -111,21 +113,22 @@ const Sidebar: React.FC<SideBarProps> = ({ toggle }) => {
 
     const names = {
         color: 'white',
-        fontSize: { xs: '18px', md: '16px', sm: '25px' }
+        fontSize: { xs: '18px', md: '16px', sm: '25px' },
+        // display:{xs:'block',md:'none'}
     };
 
 
     return (
         <>
-            <Box sx={{ width: "100%", height: '100%', backgroundColor: '#212529'}}>
+            <Box sx={{ width: "100%", height: '100%', backgroundColor: '#212529' }}>
 
                 <Box  >
 
                     <Box sx={{ height: "80px", width: "100%", display: "flex", flexDirection: "column", gap: "5px", padding: "10px" }}>
                         {toggle ?
-                            <Typography variant='h5' sx={{ color: "white", fontSize: "17px", textWrap: 'nowrap', marginTop: '15px' }}>Money Management App</Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>  <Typography variant='h5' sx={{ color: "white", fontSize: "17px", textWrap: 'nowrap', }}>Money Management App</Typography> <CloseIcon sx={{ display: { xs: 'block', md: 'none' } }} onClick={() => setToggle((prev) => !prev)} /></Box>
                             :
-                            <Typography variant='h5' sx={{ color: "white", fontSize: "20px", margin: "0" }}> M M</Typography>
+                            <Typography variant='h5' sx={{ color: "white", fontSize: "20px", margin: "0", display: { xs: 'none' } }}> M M</Typography>
 
                         }
                     </Box>
@@ -135,11 +138,16 @@ const Sidebar: React.FC<SideBarProps> = ({ toggle }) => {
                                 <ListItemButton key={index} onClick={() => directnavigationthroughname(item, index)}>
                                     <ListItemIcon>
                                         <Box sx={{ display: "flex", alignContent: "center", justifyContent: "center", gap: "10px" }}>
-                                            <Typography >{item.myicon}</Typography>
+                                            {!toggle ?
+                                                <Typography sx={{ display: { xs: 'none', md: 'block' } }} >{item.myicon}</Typography>
+                                                : <Typography >{item.myicon}</Typography>
+
+                                            }
+
 
                                             {toggle &&
-                                               
-                                                    <Typography sx={names}>{item.name}</Typography>
+
+                                                <Typography sx={names}>{item.name}</Typography>
                                             }
 
                                         </Box>

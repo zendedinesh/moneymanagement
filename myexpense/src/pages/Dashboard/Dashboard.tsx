@@ -134,7 +134,8 @@ const Dashboard: React.FC = () => {
         borderRadius: '15px',
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
         width: '100%',
-        padding: '10px'
+        padding: '10px',
+
 
     }
     const edittext = {
@@ -145,8 +146,9 @@ const Dashboard: React.FC = () => {
         borderRadius: '8px',
         // paddingLeft: '10px',
         //  height:'20px'
-        padding:'3px',
-        textAlign:'center'
+        padding: '2px',
+        textAlign: 'center',
+        borderBottom: 'none'
 
     }
     const deletetext = {
@@ -156,8 +158,9 @@ const Dashboard: React.FC = () => {
         borderRadius: '8px',
         // paddingLeft: '20px',
         // height:'20px'
-        padding:'3px',
-        textAlign:'center'
+        padding: '3px',
+        textAlign: 'center',
+        borderBottom: 'none'
     }
 
 
@@ -379,7 +382,7 @@ const Dashboard: React.FC = () => {
             }}>
 
 
-                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',backgroundColor:'black' }}>
+                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
                     <Typography sx={expense}>Expense List</Typography>
                 </Box>
 
@@ -408,8 +411,8 @@ const Dashboard: React.FC = () => {
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Expensedate}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Expenseamount}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Description}</TableCell>
-                                        <TableCell  sx={{width:'6%' }}><TableCell sx={edittext}>{item.Edit}</TableCell></TableCell>
-                                       <TableCell sx={{width:'5%'}}><TableCell sx={deletetext}>{item.Delete}</TableCell></TableCell>  
+                                        <TableCell sx={{ width: '9%' }}><TableCell sx={edittext}>{item.Edit}</TableCell></TableCell>
+                                        <TableCell sx={{ width: '5%' }}><TableCell sx={deletetext}>{item.Delete}</TableCell></TableCell>
                                         {/* <TableCell><Box sx={{ display: 'flex', gap: '20px', width: '36%' }}> <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'lightgreen', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}> <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Edit}</TableCell></Box>
                                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'red', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}><TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Delete}</TableCell></Box></Box></TableCell> */}
                                     </TableRow>
