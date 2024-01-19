@@ -117,7 +117,7 @@ const Sidebar: React.FC<SideBarProps> = ({ }) => {
         // display:{xs:'block',md:'none'}
     };
 
-
+  
     return (
         <>
             <Box sx={{ width: "100%", height: '100%', backgroundColor: '#212529' }}>

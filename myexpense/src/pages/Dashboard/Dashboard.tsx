@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
     const edittext = {
         fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white',
         width: '5%',
-        backgroundColor: 'lightgreen',
+        backgroundColor: '#A8B996',
         // boxShadow:'0px 2px 10px rgba(0,0,0,0.1)',
         borderRadius: '8px',
         // paddingLeft: '10px',
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
     const deletetext = {
         fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white',
         width: '5%',
-        backgroundColor: 'red',
+        backgroundColor: '#E9877F',
         borderRadius: '8px',
         // paddingLeft: '20px',
         // height:'20px'
@@ -367,7 +367,7 @@ const Dashboard: React.FC = () => {
                                     fontSize: { xs: '9px', sm: '16px', md: '12px' },
                                     height: { xs: '5px', md: '20px' },
                                 }
-                            }} ></TextField>
+                            }} ></TextField> 
 
                     </Box>
 
@@ -378,15 +378,15 @@ const Dashboard: React.FC = () => {
                 width: "100%",
                 display: "flex",
                 borderRadius: "8px",
-                justifyContent: "center", flexDirection: "column", gap: "20px", backgroundColor: "white", padding: "10px"
+                justifyContent: "center", flexDirection: "column", gap: "20px", backgroundColor: "#4A4A4A", padding: "10px"
             }}>
 
 
-                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
+                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#4A4A4A' }}>
                     <Typography sx={expense}>Expense List</Typography>
                 </Box>
 
-                <TableContainer sx={{ backgroundColor: 'black' }} >
+                <TableContainer sx={{ backgroundColor: '#4A4A4A' }} >
                     <Table >
                         <TableHead>
                             <TableRow>

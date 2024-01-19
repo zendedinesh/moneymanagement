@@ -60,7 +60,7 @@ const Layout: React.FC = () => {
 
     return (
         <Box sx={mainWrapper}>
-            <Box sx={{ width: toggle ? { xs: '100%', md: '200px' } : { xs: '0px', md: '50px' }, transition: 'all 0.3s ease-in-out', position:{xs:'fixed',md:'sticky'}, height:'100vh', }}>
+            <Box sx={{ width: toggle ? { xs: '100%', md: '220px' } : { xs: '0px', md: '50px' }, transition: 'all 0.3s ease-in-out', position:{xs:'fixed',md:'sticky'}, height:'100vh', }}>
                 <Sidebar toggle={toggle} />
             </Box>
 
