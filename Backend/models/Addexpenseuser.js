@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
 
-const AddexpenseSchema = new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', // Assuming there is a User model for the userId reference
@@ -25,7 +25,7 @@ const AddexpenseSchema = new mongoose.Schema({
         required: true,
     },
 })
-module.exports = mongoose.model('addSchema', AddexpenseSchema)
+module.exports = mongoose.model('addSchema', ExpenseSchema)
 
 // models/AddSchema.js
 

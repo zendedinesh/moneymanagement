@@ -50,7 +50,7 @@ const Addexpense: React.FC = () => {
 
   const ae = {
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     marginBottom: '10px',
     textAlign: 'center',
     fontSize: { xs: '15px', sm: '20px', md: '17px' },
