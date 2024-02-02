@@ -1,21 +1,31 @@
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useState } from 'react';
 import { Box, Button, Card, InputLabel, TextField, Typography } from '@mui/material';
 // import Simplesidebar from '../simplesidebar/Simplesidebar';
 // import Appbar from '../appbar/Appbar';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { API } from '../../constant/Network';
+import { Observable } from 'rxjs';
 
+interface ExpenseData {
+  Description: string;
+  ExpenseDate: string;
+  ExpenseAmount: number;
+  Categories: string;
+}
+
+//interface ExpenseDatatwo {
+//   Description: string;
+//   ExpenseDate: string;
+//   ExpenseAmount: number;
+//   Categories: string;
+// }
 
 const Addexpense: React.FC = () => {
   const { handleSubmit, register, formState: { errors }, setError } = useForm();
 
-  interface ExpenseData {
-    Description: string;
-    ExpenseDate: string;
-    ExpenseAmount: number;
-    Categories: string;
-  }
+  // const [expensedata, setexpenseData] = useState<ExpenseData[]>([])
 
   const [expensestuff, setExpensestuff] = useState<ExpenseData>({
     Description: '',
@@ -24,27 +34,45 @@ const Addexpense: React.FC = () => {
     Categories: '',
   });
 
+
+
+
   // const [date, setDate] = useState<string | number | null>();
   // const [errordisappear, setErrordisappear] = useState(false); 
 
   const handleExpense = (fieldName: string, value: string | number) => {
-    setExpensestuff({...expensestuff, [fieldName]: value });
+    setExpensestuff({ ...expensestuff, [fieldName]: value });
     setError(fieldName, {
       type: "manual",
       message: undefined,
     });
   };
-
+  console.log(expensestuff)
   const submitform: SubmitHandler<FieldValues> = (data) => {
+    // post request using network file 
     console.log(data)
     if (expensestuff.Description && expensestuff.ExpenseDate && expensestuff.ExpenseAmount && expensestuff.Categories) {
-      alert('All expenses added successfully');
-      setExpensestuff({
-        Description: '',
-        ExpenseDate: '',
-        ExpenseAmount: 0,
-        Categories: '',
+      const url = 'http://localhost:9001/api/v1/auth/expense';
+
+      const headers = {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+      };
+      API.post(url, expensestuff, headers)?.subscribe({
+        next(res: any) {
+          console.log("res data:", res.data);
+          alert('All expenses added successfully'); 
+          setExpensestuff({
+            Description: '',
+            ExpenseDate: '',
+            ExpenseAmount: 0,
+            Categories: '',
+          });
+        },
+        error(err: any) {
+          console.log("error:", err);
+        }
       });
+
     }
   };
 
@@ -61,167 +89,167 @@ const Addexpense: React.FC = () => {
     padding: '10px',
   };
 
-  console.log(Boolean(errors.Description?.message))
+  // console.log(Boolean(errors.Description?.message))
 
   return (
     <>
-     
-        <Box sx={{ position: 'static', width: '100%' }}>
-          {/* <Appbar /> */}
-          <Box
+
+      <Box sx={{ position: 'static', width: '100%' }}>
+        {/* <Appbar /> */}
+        <Box
+          sx={{
+            height: { xs: '80vh', sm: '100vh', md: '100vh' },
+            backgroundColor: '#040f13',
+            paddingTop: { xs: '0px', sm: '20px', md: '20px' },
+          }}
+        >
+          <Card
             sx={{
-              height: { xs: '80vh', sm: '100vh', md: '100vh' },
-              backgroundColor: '#040f13',
-              paddingTop: { xs: '0px', sm: '20px', md: '20px' },
+              height: { xs: '91vh', sm: '80vh', md: '80vh' },
+              margin: 'auto',
+              width: { xs: '100%', sm: '80%', md: '60%' },
+              background: 'white',
             }}
           >
-            <Card
-              sx={{
-                height: { xs: '91vh', sm: '80vh', md: '80vh' },
-                margin: 'auto',
-                width: { xs: '100%', sm: '80%', md: '60%' },
-                background: 'white',
-              }}
-            >
-              <Typography sx={ae}>Add Expense</Typography>
-              <form onSubmit={handleSubmit(submitform)}>
-                <Box sx={{ padding: '20px 50px' }}>
-                  <Box>
-                    <InputLabel
-                      required
-                      sx={{
-                        fontSize: { xs: '13px', md: '13px', sm: '17px' },
-                      }}
-                    >
-                      Description
-                    </InputLabel>
-                    <TextField
-                      {...register('Description', { required: 'Description is required' })}
-                      onChange={(e) => handleExpense('Description', e.target.value)}
-                      value={expensestuff.Description}
-                      size="small"
-                      sx={{
-                        width: { xs: '100%', sm: '100%', md: '100%' },
-                        marginBottom: { xs: '10px', sm: '20px', md: '10px' },
-                      }}
-                      error={Boolean(errors.Description?.message)}
-                      helperText={errors.Description?.message as ReactNode}
-                      inputProps={{
-                        sx: {
-                          height: { xs: '15px', sm: '25px', md: '15px' },
-                        }
-                      }}
-                    />
+            <Typography sx={ae}>Add Expense</Typography>
+            <form onSubmit={handleSubmit(submitform)}>
+              <Box sx={{ padding: '20px 50px' }}>
+                <Box>
+                  <InputLabel
+                    required
+                    sx={{
+                      fontSize: { xs: '13px', md: '13px', sm: '17px' },
+                    }}
+                  >
+                    Description
+                  </InputLabel>
+                  <TextField
+                    {...register('Description', { required: 'Description is required' })}
+                    onChange={(e) => handleExpense('Description', e.target.value)}
+                    value={expensestuff.Description}
+                    size="small"
+                    sx={{
+                      width: { xs: '100%', sm: '100%', md: '100%' },
+                      marginBottom: { xs: '10px', sm: '20px', md: '10px' },
+                    }}
+                    error={Boolean(errors.Description?.message)}
+                    helperText={errors.Description?.message as ReactNode}
+                    inputProps={{
+                      sx: {
+                        height: { xs: '15px', sm: '25px', md: '15px' },
+                      }
+                    }}
+                  />
 
-                  </Box>
-                  <Box>
-                    <InputLabel
-                      required
-                      sx={{
-                        fontSize: { xs: '13px', md: '13px', sm: '17px' },
-                      }}
-                    >
-                      ExpenseDate
-                    </InputLabel>
-                    <TextField
-                      {...register('ExpenseDate', { required: 'ExpenseDate is required' })}
-                      onChange={(e) => handleExpense('ExpenseDate', (e.target.value))}
-                      value={expensestuff.ExpenseDate}
-                      size="small"
-                      type='date'
-                      sx={{
-                        width: { xs: '100%', sm: '100%', md: '100%' },
-                        marginBottom: { xs: '10px', sm: '20px', md: '10px' },
-                      }}
-                      error={Boolean(errors.ExpenseDate?.message)}
-                      helperText={errors.ExpenseDate?.message as ReactNode}
-
-                      inputProps={{
-                        sx: {
-                          height: { xs: '15px', sm: '25px', md: '15px' },
-                        },
-                      }}
-                    />
-
-                  </Box>
-                  <Box>
-
-                    <InputLabel
-                      required
-                      sx={{
-                        fontSize: { xs: '13px', md: '13px', sm: '17px' },
-                      }}
-                    >
-                      ExpenseAmount
-                    </InputLabel>
-                    <TextField
-                      {...register('ExpenseAmount', { required: 'ExpenseAmount is required' })}
-                      onChange={(e) => handleExpense('ExpenseAmount', Number(e.target.value))}
-                      value={expensestuff.ExpenseAmount}
-                      size="small"
-                      sx={{
-                        width: { xs: '100%', sm: '100%', md: '100%' },
-                        marginBottom: { xs: '10px', sm: '20px', md: '10px' },
-                      }}
-                      error={Boolean(errors.ExpenseAmount?.message )}
-                      helperText={errors.ExpenseAmount?.message as ReactNode}
-                      inputProps={{
-                        sx: {
-                          height: { xs: '15px', sm: '25px', md: '15px' },
-                        },
-                      }}
-                    />
-                  </Box>
-
-                  <Box>
-                    <InputLabel
-                      required
-                      sx={{
-                        fontSize: { xs: '13px', md: '13px', sm: '17px' },
-                      }}
-                    >
-                      Categories
-                    </InputLabel>
-                    <TextField
-                      {...register('Categories', { required: 'Categories is required' })}
-                      onChange={(e) => handleExpense('Categories', e.target.value)}
-                      value={expensestuff.Categories}
-                      size="small"
-                      sx={{
-                        width: { xs: '100%', sm: '100%', md: '100%' },
-                        marginBottom: { xs: '10px', sm: '20px', md: '10px' },
-                      }}
-                      error={Boolean(errors.Categories?.message)}
-                      helperText={errors.Categories?.message as ReactNode}
-                      inputProps={{
-                        sx: {
-                          height: { xs: '15px', sm: '25px', md: '15px' },
-                        },
-                      }}
-                    />
-
-                  </Box>
-                  <Box>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      sx={{
-                        width: { xs: '100%', sm: '100%', md: '100%' },
-                        backgroundColor: '#848484',
-                        color: 'white',
-                        fontSize: { xs: '13px', sm: '', md: '' },
-                      }}
-                    >
-                      Add Expense
-                    </Button>
-                  </Box>
-                  <Box />
                 </Box>
-              </form>
-            </Card>
-          </Box>
+                <Box>
+                  <InputLabel
+                    required
+                    sx={{
+                      fontSize: { xs: '13px', md: '13px', sm: '17px' },
+                    }}
+                  >
+                    ExpenseDate
+                  </InputLabel>
+                  <TextField
+                    {...register('ExpenseDate', { required: 'ExpenseDate is required' })}
+                    onChange={(e) => handleExpense('ExpenseDate', (e.target.value))}
+                    value={expensestuff.ExpenseDate}
+                    size="small"
+                    type='date'
+                    sx={{
+                      width: { xs: '100%', sm: '100%', md: '100%' },
+                      marginBottom: { xs: '10px', sm: '20px', md: '10px' },
+                    }}
+                    error={Boolean(errors.ExpenseDate?.message)}
+                    helperText={errors.ExpenseDate?.message as ReactNode}
+
+                    inputProps={{
+                      sx: {
+                        height: { xs: '15px', sm: '25px', md: '15px' },
+                      },
+                    }}
+                  />
+
+                </Box>
+                <Box>
+
+                  <InputLabel
+                    required
+                    sx={{
+                      fontSize: { xs: '13px', md: '13px', sm: '17px' },
+                    }}
+                  >
+                    ExpenseAmount
+                  </InputLabel>
+                  <TextField
+                    {...register('ExpenseAmount', { required: 'ExpenseAmount is required' })}
+                    onChange={(e) => handleExpense('ExpenseAmount', Number(e.target.value))}
+                    value={expensestuff.ExpenseAmount}
+                    size="small"
+                    sx={{
+                      width: { xs: '100%', sm: '100%', md: '100%' },
+                      marginBottom: { xs: '10px', sm: '20px', md: '10px' },
+                    }}
+                    error={Boolean(errors.ExpenseAmount?.message)}
+                    helperText={errors.ExpenseAmount?.message as ReactNode}
+                    inputProps={{
+                      sx: {
+                        height: { xs: '15px', sm: '25px', md: '15px' },
+                      },
+                    }}
+                  />
+                </Box>
+
+                <Box>
+                  <InputLabel
+                    required
+                    sx={{
+                      fontSize: { xs: '13px', md: '13px', sm: '17px' },
+                    }}
+                  >
+                    Categories
+                  </InputLabel>
+                  <TextField
+                    {...register('Categories', { required: 'Categories is required' })}
+                    onChange={(e) => handleExpense('Categories', e.target.value)}
+                    value={expensestuff.Categories}
+                    size="small"
+                    sx={{
+                      width: { xs: '100%', sm: '100%', md: '100%' },
+                      marginBottom: { xs: '10px', sm: '20px', md: '10px' },
+                    }}
+                    error={Boolean(errors.Categories?.message)}
+                    helperText={errors.Categories?.message as ReactNode}
+                    inputProps={{
+                      sx: {
+                        height: { xs: '15px', sm: '25px', md: '15px' },
+                      },
+                    }}
+                  />
+
+                </Box>
+                <Box>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                      width: { xs: '100%', sm: '100%', md: '100%' },
+                      backgroundColor: '#848484',
+                      color: 'white',
+                      fontSize: { xs: '13px', sm: '', md: '' },
+                    }}
+                  >
+                    Add Expense
+                  </Button>
+                </Box>
+                <Box />
+              </Box>
+            </form>
+          </Card>
         </Box>
-     
+      </Box>
+
     </>
   );
 };

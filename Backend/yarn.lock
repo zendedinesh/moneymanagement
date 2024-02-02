@@ -25,9 +25,9 @@
     sparse-bitfield "^3.0.3"
 
 "@types/node@*":
-  version "20.11.5"
-  resolved "https://registry.npmjs.org/@types/node/-/node-20.11.5.tgz"
-  integrity sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==
+  version "20.11.10"
+  resolved "https://registry.npmjs.org/@types/node/-/node-20.11.10.tgz"
+  integrity sha512-rZEfe/hJSGYmdfX9tvcPMYeYPW2sNl50nsw4jZmRcaG0HIAb0WYEpsB05GOb53vjqpyE9GUhlDQ4jLSoB5q9kg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -318,9 +318,9 @@ detect-libc@^2.0.0:
   integrity sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==
 
 dotenv@^16.3.1:
-  version "16.3.2"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.3.2.tgz"
-  integrity sha512-HTlk5nmhkm8F6JcdXvHIzaorzCoziNQT9mGxLPVXW8wJF1TiGSL60ZGB4gHWabHOaMmWmhvk2/lPHfnBiT78AQ==
+  version "16.4.1"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.1.tgz"
+  integrity sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"
@@ -762,6 +762,11 @@ mkdirp@^1.0.3:
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
+moment@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.30.1.tgz"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
 mongodb-connection-string-url@^2.6.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-2.6.0.tgz"
@@ -860,9 +865,9 @@ node-fetch@^2.6.7:
     whatwg-url "^5.0.0"
 
 node@^21.2.0:
-  version "21.6.0"
-  resolved "https://registry.npmjs.org/node/-/node-21.6.0.tgz"
-  integrity sha512-9kaKu3UjMmJZ8o9o9LjUsFOOA5OF4f+d6ADPvf+/4E3R0cUvnx6PIU/6DVPxp3OjIMbF9Nmsez0ulM7QEJPvMw==
+  version "21.6.1"
+  resolved "https://registry.npmjs.org/node/-/node-21.6.1.tgz"
+  integrity sha512-cTqZk0/Wl6qeVcftyriVhHGFw1xvXl9o8TPI/qLcoVKh6X1dDKJGVi+EbhUg6864+KoDBnEaVxre59W8r8cLcA==
   dependencies:
     node-bin-setup "^1.0.0"
 

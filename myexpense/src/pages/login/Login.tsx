@@ -6,35 +6,55 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 
 import myn from '../../../src/myimages/nn.webp';
+import { API } from '../../constant/Network';
 
 const Login: React.FC = () => {
   const { handleSubmit, register, formState: { errors } } = useForm();
 
   interface LoginData {
-    Email: string;
-    Password: string;
+    email: string;
+    password: string;
   }
 
   const [Loginvalue, setLoginvalue] = useState<LoginData>({
-    Email: '',
-    Password: ''
+    email: '',
+    password: ''
   });
- 
+
   const usrloginvalue = (fieldName: string, value: string | number) => {
-    setLoginvalue({ ...Loginvalue, [fieldName]: value });
+    setLoginvalue((prev) => ({
+      ...prev,
+      [fieldName]: value
+    }));
 
   };
 
   const submitloginform: SubmitHandler<FieldValues> = (data) => {
     console.log(data)
-    if (Loginvalue.Email && Loginvalue.Password) {
-      alert('Successfully added email and password');
-    }
-    setLoginvalue({
-      Email: '',
-      Password: ''
+    // if (Loginvalue.Email && Loginvalue.password) {
+    const url = 'http://localhost:9001/api/v1/auth/login';
+
+    API.post(url, Loginvalue)?.subscribe({
+      next(res: any) {
+        console.log(res.token);
+        alert('Successfully logged in');
+
+        setLoginvalue({
+          email: '',
+          password: ''
+        });
+
+      },
+
+      error(err: any) {
+        console.log(err);
+        alert('Login failed. Please check your credentials.');
+      }
+
     });
+    // }
   };
+
 
   const navigatetothedashboard = useNavigate();
 
@@ -103,12 +123,13 @@ const Login: React.FC = () => {
                 <Typography sx={user}>User Login</Typography>
               </Box>
               <form onSubmit={handleSubmit(submitloginform)}>
+
                 <TextField
-                  // onChange={(e) => usrloginvalue('Email', e.target.value)}  
-                  placeholder='Enter Email'
+                  // placeholder='Enter Email'
                   id="outlined-required"
-                  {...register('Email', { required: 'Email is required' })} 
-                  value={Loginvalue.Email}
+                  {...register('email', { required: 'Email is required' })}
+                  onChange={(e) => usrloginvalue('email', e.target.value)}
+                  value={Loginvalue.email}
                   label="Enter email"
                   sx={{ width: '100%', marginBottom: '30px' }}
                   size='small'
@@ -124,7 +145,7 @@ const Login: React.FC = () => {
                   variant="outlined"
                   size='small'
                 >
-                  <InputLabel htmlFor="outlined-adornment-password">  Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                   <OutlinedInput
                     inputProps={{
                       sx: {
@@ -132,7 +153,6 @@ const Login: React.FC = () => {
                       }
                     }}
                     id="outlined-adornment-password"
-
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                       <InputAdornment position="end">
@@ -146,21 +166,26 @@ const Login: React.FC = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="  Password"
+                    label="Password"
+                    {...register('password', { required: 'Password is required' })}
+                    onChange={(e) => usrloginvalue('password', e.target.value)}
+                    value={Loginvalue.password}
                   />
                 </FormControl>
+
+
+                <Box>
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color="primary"
+                    aria-label='submit'
+                    sx={{ width: '100%', marginTop: { xs: '20px', md: '20px', sm: '25px' }, height: { xs: '', sm: '50px', md: '' }, fontSize: { xs: '', sm: '20px', md: '' } }}
+                  >
+                    Submit
+                  </Button>
+                </Box>
               </form>
-              <Box>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  color="primary"
-                  aria-label='submit'
-                  sx={{ width: '100%', marginTop: { xs: '20px', md: '20px', sm: '25px' }, height: { xs: '', sm: '50px', md: '' }, fontSize: { xs: '', sm: '20px', md: '' } }}
-                >
-                  Submit
-                </Button>
-              </Box>
               <Box sx={textpassword}>
                 <Typography sx={userac} onClick={mainpage} >
                   Not registered yet ? Create an account

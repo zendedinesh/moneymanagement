@@ -1,11 +1,12 @@
 // controllers/expenseController.js
+// const moment = require('moment');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const ExpenseSchema = require('../models/Addexpenseuser');
 const UserSchema = require('../models/User');
 const Addusersalary = require('../models/Addsalary')
 const bcrypt = require('bcrypt');
-
+const mongoose = require('mongoose');
 // 1) Addexpensetomongodb
 exports.addexpenseTomongodb = asyncHandler(async (req, res, next) => {
   const { Description, ExpenseDate, ExpenseAmount, Categories } = req.body;
@@ -43,6 +44,7 @@ exports.getmyexpenses = asyncHandler(async (req, res, next) => {
 //3)getexpenseby date,discription,category
 
 exports.getexpensebycategories = asyncHandler(async (req, res, next) => {
+  // console.log("BACKEND...")
   const { category, expensedate, description, skip, take } = req.query;
   console.log("numberofpage - ", skip);
   console.log("numberofpage - ", take)
@@ -89,7 +91,7 @@ exports.editbyuser = asyncHandler(async (req, res, next) => {
     ExpenseDate,
     ExpenseAmount,
     Categories
-  }, { new: true }) 
+  }, { new: true })
 
   console.log(editmyexpense)
   res.status(200).json({ success: true, editmyexpense });
@@ -97,8 +99,9 @@ exports.editbyuser = asyncHandler(async (req, res, next) => {
 
 //5)deletexpensebyuser
 exports.deletebyuser = asyncHandler(async (req, res, next) => {
-
-  const { id } = req.query
+  const {  id } = req.query
+  console.log("paramsObj :", id)
+  console.log("id :", id)
   const deleteexpense = await ExpenseSchema.findByIdAndDelete(id)
   res.status(200).json({ success: true, deleteexpense })
 })
@@ -129,3 +132,42 @@ exports.addusersalary = asyncHandler(async (req, res, next) => {
   console.log("add salary 2")
   res.status(200).json({ success: true, addsalary })
 })
+
+exports.totalmonthlyexpense = asyncHandler(async (req, res, next) => {
+  const currentDate = new Date();
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+  const currentuser = new mongoose.Types.ObjectId(req.user.id);
+  // console.log("currentuser", currentuser)
+  // console.log("currentDate", currentDate)
+  // console.log("firstDayOfMonth", firstDayOfMonth)
+  // console.log("lastDayOfMonth", lastDayOfMonth)
+
+  const totalcount = await ExpenseSchema.aggregate([
+    {
+      $match: {
+        userId: currentuser,
+        ExpenseDate: {
+          $gte: firstDayOfMonth,
+          $lte: lastDayOfMonth
+        }
+      }
+    },
+
+    {
+      $group: {
+        _id: null,
+        totalamount: { $sum: "$ExpenseAmount" },
+        totaldocuments: { $sum: 1 }
+      }
+    }
+  ]);
+
+  res.status(200).json({ success: true, totalcount });
+
+});
+
+
+
+// console.log("firstday", firstDayOfMonth),
+// console.log("lastday", lastDayOfMonth),

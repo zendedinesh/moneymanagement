@@ -6,24 +6,27 @@ const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please enter the name'], 
-        trim: true, //why
+        trim: true //why
     },
     email: {
         type: String,
         required: [true, 'Please provide email address'],
         unique: true,
-        match:[/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please provide a valid emial'] 
+        match:[/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please provide a valid emial'] ,
+        trim: true //why
     },
     role: {
         type: String,
         enum: ['user', 'publisher'], 
-        default: 'user' 
+        default: 'user' ,
+        trim: true //why
     },
     password: {
         type: String,
         required: [true, 'Please provide a password'],
         minlength: [6, 'The password must be more than 6 character'],
-        select: false//why
+        select: false,//why,,
+        trim: true //why
     },
    
     resetPasswordToken: String, //explain

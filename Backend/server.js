@@ -7,7 +7,7 @@ const colors = require('colors');
 const errorHandler = require('./middleware/error');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
+const cors = require('cors')
 // Load env file
 dotenv.config({ path: './config/.env' });
 
@@ -21,7 +21,7 @@ const app = express();
 
 // Add public as a static folder
 app.use(express.static(path.join(__dirname, 'public')));//explain
-
+app.use(cors())
 // Adding json-parser
 app.use(express.json());
 

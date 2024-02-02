@@ -1,7 +1,7 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppBar, Box, Button, Card, Drawer, Grid, List, ListItemButton, ListItemIcon, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Typography, } from '@mui/material';
-
+import { Subscription } from 'rxjs';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 // import SearchIcon from '@mui/icons-material/Search';
@@ -21,63 +21,177 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // import './Dashboard.css';
 
+import { API } from '../../../src/constant/Network';
+import { set } from 'date-fns';
 
 
-interface tabledata {
-    Expensetype: string;
-    Expensedate: React.ReactNode;
-    Expenseamount: React.ReactNode;
-    Description: string;
-    Edit: React.ReactNode;
-    Delete: React.ReactNode;
+
+// interface tabledata {
+//     Expensetype: String;
+//     Expensedate: React.ReactNode;
+//     Expenseamount: React.ReactNode;
+//     Description: String;
+//     Edit: React.ReactNode;
+//     Delete: React.ReactNode;
+
+// }
+interface tabledatatwo {
+    Description: String;
+    ExpenseDate: String;
+    ExpenseAmount: String;
+    Categories: String;
 
 }
 
-const tablearr: tabledata[] = [
-    {
-        Expensetype: 'samosa',
-        Expensedate: '5/01/2024',
-        Expenseamount: '15 ',
-        Description: 'Food',
-        Edit: 'edit',
-        Delete: 'delete'
-    },
-    {
-        Expensetype: 'samosa',
-        Expensedate: '5/01/2024',
-        Expenseamount: '15 ',
-        Description: 'Food',
-        Edit: 'edit',
-        Delete: 'delete'
-    },
-    {
-        Expensetype: 'samosa',
-        Expensedate: '5/01/2024',
-        Expenseamount: '15 ',
-        Description: 'Food',
-        Edit: 'edit',
-        Delete: 'delete'
-    },
-    {
-        Expensetype: 'samosa',
-        Expensedate: '5/01/2024',
-        Expenseamount: '15 ',
-        Description: 'Food',
-        Edit: 'edit',
-        Delete: 'delete'
-    },
-    {
-        Expensetype: 'samosa',
-        Expensedate: '5/01/2024',
-        Expenseamount: '15 ',
-        Description: 'Food',
-        Edit: 'edit',
-        Delete: 'delete'
-    },
+interface amountdata{
+    totalamount:Number
+}
+
+const tablearrtwo: tabledatatwo[] = [
+
 ]
+
+interface money {
+
+}
+// const tablearr: tabledata[] = [
+//     {
+//         Expensetype: 'samosa',
+//         Expensedate: '5/01/2024',
+//         Expenseamount: '15 ',
+//         Description: 'Food',
+//         Edit: 'edit',
+//         Delete: 'delete'
+//     },
+//     {
+//         Expensetype: 'samosa',
+//         Expensedate: '5/01/2024',
+//         Expenseamount: '15 ',
+//         Description: 'Food',
+//         Edit: 'edit',
+//         Delete: 'delete'
+//     },
+//     {
+//         Expensetype: 'samosa',
+//         Expensedate: '5/01/2024',
+//         Expenseamount: '15 ',
+//         Description: 'Food',
+//         Edit: 'edit',
+//         Delete: 'delete'
+//     },
+//     {
+//         Expensetype: 'samosa',
+//         Expensedate: '5/01/2024',
+//         Expenseamount: '15 ',
+//         Description: 'Food',
+//         Edit: 'edit',
+//         Delete: 'delete'
+//     },
+//     {
+//         Expensetype: 'samosa',
+//         Expensedate: '5/01/2024',
+//         Expenseamount: '15 ',
+//         Description: 'Food',
+//         Edit: 'edit',
+//         Delete: 'delete'
+//     },
+// ]
+
 const Dashboard: React.FC = () => {
 
+    const deleteExpense = () => {
+        const url = 'http://localhost:9001/api/v1/auth/expense';
+        const headers = {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+        };
 
+        const id = '65bcace5e16d876670958657';
+
+        API.deleteApi(url, id, headers)?.subscribe({
+            next: (res: any) => {
+                console.log(res.data);
+                // Handle successful deletion here
+            },
+            error: (err: any) => {
+                console.log(err);
+                // Handle error here
+            }
+        });
+    };
+
+    // useEffect(() => {
+    //     deleteExpense()
+    // }, [])
+
+
+    // get request using network file 
+
+    const [datares, setdatares] = useState<tabledatatwo[]>([])
+
+    const getlist = () => {
+        const url = 'http://localhost:9001/api/v1/auth/expenses';
+        const myparamobj: {
+            skip: number;
+            take: number;
+        } = {
+            skip: 0,
+            take: 10,
+        };
+
+        const headers = {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+        };
+
+        API.get(url, myparamobj, headers)?.subscribe({
+            next(res: any) {
+                setdatares(res.data.expensebycategory)
+                // console.log("res :", res)
+                // console.log("res.data :", res.data)
+                // console.log("res.data.expensebycategory :", res.data.expensebycategory)
+            },
+            error: (err: any) => {
+                console.log("error", err)
+            }
+            // complete:(complete: any)=> {
+            //     console.log("complete", complete);
+            // }
+        });
+
+
+    };
+    console.log("datares :", datares)
+    useEffect(() => {
+        getlist()
+    }, [])
+
+    const [totalexpense, Settotalexpense] = useState<amountdata[]>([]) 
+ 
+
+
+
+    const getTotalexpense = () => {
+        const url = 'http://localhost:9001/api/v1/auth/totalmonthlyexpense';
+        const headers = {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+        };
+        API.get(url, headers)?.subscribe({
+            next(res: any) {
+                Settotalexpense(res.data)
+                // console.log("res :", res)
+                // console.log("res.data :", res.data)
+                // console.log("res.data.expensebycategory :", res.data.expensebycategory)
+            },
+            error: (err: any) => {
+                console.log("error", err)
+            }
+            // complete:(complete: any)=> {
+            //     console.log("complete", complete);
+            // }
+        });
+    }
+    useEffect(() => {
+        getTotalexpense()
+    }, [])
 
 
     const addCard = {
@@ -258,6 +372,8 @@ const Dashboard: React.FC = () => {
 
 
 
+
+
     return (
 
 
@@ -279,7 +395,7 @@ const Dashboard: React.FC = () => {
                         <Typography sx={{ fontSize: { xs: '20px', md: '30px' }, fontWeight: "800", }}>
 
 
-                            15000
+                          15000 
 
                         </Typography>
 
@@ -329,7 +445,7 @@ const Dashboard: React.FC = () => {
                             fontSize: '14px',
                             color: "white"
                         }
-                    }}></TextField>
+                    }}> </TextField>
                 </Box>
                 <Box sx={{ display: "flex", gap: "20px", width: "100%", justifyContent: "center", }}>
 
@@ -367,13 +483,14 @@ const Dashboard: React.FC = () => {
                                     fontSize: { xs: '9px', sm: '16px', md: '12px' },
                                     height: { xs: '5px', md: '20px' },
                                 }
-                            }} ></TextField> 
+                            }} ></TextField>
 
                     </Box>
 
                 </Box>
 
             </Box>
+            // Expenselist
             <Box sx={{
                 width: "100%",
                 display: "flex",
@@ -405,14 +522,15 @@ const Dashboard: React.FC = () => {
                         </TableHead>
                         <TableBody>
                             {
-                                tablearr.map((item) => (
-                                    <TableRow>
-                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Expensetype}</TableCell>
-                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Expensedate}</TableCell>
-                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Expenseamount}</TableCell>
+                                datares.map((item, index) => (
+                                    <TableRow key={index} >
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Description}</TableCell>
-                                        <TableCell sx={{ width: '9%' }}><TableCell sx={edittext}>{item.Edit}</TableCell></TableCell>
-                                        <TableCell sx={{ width: '5%' }}><TableCell sx={deletetext}>{item.Delete}</TableCell></TableCell>
+                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.ExpenseDate}</TableCell>
+                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.ExpenseAmount}</TableCell>
+                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Categories}</TableCell>
+                                        <TableCell><Button variant='contained' color='success'>edit</Button></TableCell>
+                                        <TableCell><Button variant='contained' color='primary' onClick={deleteExpense}>delete</Button></TableCell>
+                                        {/* <TableCell sx={{ width: '5%' }}><TableCell sx={deletetext}>{item.Delete}</TableCell></TableCell> */}
                                         {/* <TableCell><Box sx={{ display: 'flex', gap: '20px', width: '36%' }}> <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'lightgreen', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}> <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Edit}</TableCell></Box>
                                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'red', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}><TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Delete}</TableCell></Box></Box></TableCell> */}
                                     </TableRow>
