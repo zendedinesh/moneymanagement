@@ -16,7 +16,7 @@ const Toggle: React.FC<DineshProps> = ({ children }) => {
   const click = () => {
     setToggle(!toggle);
   };
-
+    
   return (
     <div>
       <MyContext.Provider value={{ toggle, setToggle, click }}>

@@ -43,9 +43,10 @@ interface tabledatatwo {
 
 }
 
-interface amountdata{
-    totalamount:Number
+interface amountdata {
+    totalamount: number;
 }
+
 
 const tablearrtwo: tabledatatwo[] = [
 
@@ -99,10 +100,15 @@ interface money {
 
 const Dashboard: React.FC = () => {
 
+
+    const [searchCategory, setSearchCategory] = useState('');
+    const [searchExpenseDate, setSearchExpenseDate] = useState('');
+    const [searchDescription, setSearchDescription] = useState('');
+
     const deleteExpense = () => {
         const url = 'http://localhost:9001/api/v1/auth/expense';
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
         };
 
         const id = '65bcace5e16d876670958657';
@@ -139,7 +145,7 @@ const Dashboard: React.FC = () => {
         };
 
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
         };
 
         API.get(url, myparamobj, headers)?.subscribe({
@@ -164,21 +170,23 @@ const Dashboard: React.FC = () => {
         getlist()
     }, [])
 
-    const [totalexpense, Settotalexpense] = useState<amountdata[]>([]) 
- 
+    const [totalExpense, setTotalExpense] = useState<amountdata[]>([])
+
 
 
 
     const getTotalexpense = () => {
+
         const url = 'http://localhost:9001/api/v1/auth/totalmonthlyexpense';
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ZGZiNGY3ODE1YmMxZjBjMThlMCIsImlhdCI6MTcwNjg2MzU5OCwiZXhwIjoxNzA2ODg3MDU0fQ.W7N24dqbyGWlrb2FcojZxQC47cn_WOcim0-kktmFMx4'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
         };
         API.get(url, headers)?.subscribe({
             next(res: any) {
-                Settotalexpense(res.data)
-                // console.log("res :", res)
-                // console.log("res.data :", res.data)
+                setTotalExpense(res.data);
+                console.log("res :", res)
+                // console.log("totalamount :", res.data)
+
                 // console.log("res.data.expensebycategory :", res.data.expensebycategory)
             },
             error: (err: any) => {
@@ -191,7 +199,37 @@ const Dashboard: React.FC = () => {
     }
     useEffect(() => {
         getTotalexpense()
+        console.log(getTotalexpense);
     }, [])
+
+
+    const searchExpenses = (category: string, expensedate: string, description: string ) => {
+        const url = 'http://localhost:9001/api/v1/auth/expenses';
+        const headers = {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+        };
+
+        const params = new URLSearchParams({
+            category: category || '',
+            expensedate: expensedate || '',
+            description: description || '',
+            skip: skip || '0', // Default value for pagination
+            take: take || '10' // Default value for pagination
+        });
+        
+
+        API.get(url, params, headers)?.subscribe({
+            next(res: any) {
+                const data = res.json(); // Parse the response JSON
+                setSearchCategory(data.expensebycategory);
+                setSearchDescription(data.expensebycategory);
+                setSearchExpenseDate(data.expensebycategory);
+            }
+        });
+
+    };
+
+    searchExpenses('Category', 'Expensedate', 'Description');
 
 
     const addCard = {
@@ -273,8 +311,7 @@ const Dashboard: React.FC = () => {
         // paddingLeft: '20px',
         // height:'20px'
         padding: '3px',
-        textAlign: 'center',
-        borderBottom: 'none'
+        textAlign: 'center'
     }
 
 
@@ -388,17 +425,12 @@ const Dashboard: React.FC = () => {
 
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: "1", color: "white" }}>
-
-
-
                         <CurrencyRupeeIcon sx={{ fontSize: { xs: '21px', md: '30px' } }} />
-                        <Typography sx={{ fontSize: { xs: '20px', md: '30px' }, fontWeight: "800", }}>
-
-
-                          15000 
-
-                        </Typography>
-
+                        {totalExpense?.map((item, index) => (
+                            <Typography key={index} sx={{ fontSize: { xs: '20px', md: '30px' }, fontWeight: "800" }}>
+                                {String(item.totalamount)}
+                            </Typography>
+                        ))}
                     </Box>
 
                 </Box>
@@ -429,7 +461,7 @@ const Dashboard: React.FC = () => {
             <Box style={searchBox} sx={{ display: 'flex', gap: "20px", justifyContent: 'center', flexDirection: "column", width: "100%", alignItems: 'center', padding: "10px 15px" }}>
 
 
-                <Box sx={{ width: "100%", height: "45px", display: "flex", justifyContent: "center", alignItems: "center", borderBottom: "1px solid white" }}>
+                {/* <Box sx={{ width: "100%", height: "45px", display: "flex", justifyContent: "center", alignItems: "center", borderBottom: "1px solid white" }}>
 
                     <Typography sx={{ fontSize: { xs: "18px", md: '25' }, fontWeight: "600", lineHeight: "40px", color: "white" }} variant='h1'>Search Expense</Typography>
                 </Box>
@@ -446,7 +478,50 @@ const Dashboard: React.FC = () => {
                             color: "white"
                         }
                     }}> </TextField>
+                </Box> */}
+                <Box sx={{ width: "100%", height: "45px", display: "flex", justifyContent: "center", alignItems: "center", borderBottom: "1px solid white" }}>
+                    <Typography sx={{ fontSize: { xs: "18px", md: '25' }, fontWeight: "600", lineHeight: "40px", color: "white" }} variant='h1'>Search Expense</Typography>
                 </Box>
+                <Box sx={{ display: 'flex', gap: "20px", justifyContent: 'center', flexDirection: "column", width: "100%", alignItems: 'center', padding: "10px 15px" }}>
+                    <TextField
+                        placeholder='Enter Category To Search'
+                        sx={{ width: '100%', border: "1px solid white", outline: "none", borderRadius: "8px" }}
+                        inputProps={{
+                            sx: {
+                                height: { xs: '5px', md: '20px' },
+                                fontSize: '14px',
+                                color: "white"
+                            }
+                        }}
+                        onChange={(e) => setSearchCategory(e.target.value)}
+                    />
+                    <TextField
+                        placeholder='Enter Expense Date To Search'
+                        sx={{ width: '100%', border: "1px solid white", outline: "none", borderRadius: "8px" }}
+                        inputProps={{
+                            sx: {
+                                height: { xs: '5px', md: '20px' },
+                                fontSize: '14px',
+                                color: "white"
+                            }
+                        }}
+                        onChange={(e) => setSearchExpenseDate(e.target.value)}
+                    />
+                    <TextField
+                        placeholder='Enter Description To Search'
+                        sx={{ width: '100%', border: "1px solid white", outline: "none", borderRadius: "8px" }}
+                        inputProps={{
+                            sx: {
+                                height: { xs: '5px', md: '20px' },
+                                fontSize: '14px',
+                                color: "white"
+                            }
+                        }}
+                        onChange={(e) => setSearchDescription(e.target.value)}
+                    />
+                    <Button variant='contained' color='primary' onClick={() => searchExpenses(searchCategory, searchExpenseDate, searchDescription)}>Search</Button>
+                </Box>
+
                 <Box sx={{ display: "flex", gap: "20px", width: "100%", justifyContent: "center", }}>
 
                     <Box sx={addCard2} >

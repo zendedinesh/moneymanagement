@@ -12,11 +12,9 @@ import Checkmoney from './pages/checkmoney/Checkmoney';
 import Addexpense from './pages/addexpense/Addexpense';
 import Aditexpense from './pages/aditexpense/Aditexpense';
 import Register from './pages/register/Register';
-import Layout from './pages/Layout/Layout';
+import Layout from './pages/layout/Layout';
 import Dashboard from './pages/dashboard/Dashboard';
-// import { Dashboard } from '@mui/icons-material';
-// import Layout from './pages/layout/Layout';
-// import Dashboard from './pages/dashboard/Dashboard';
+
      
 function App() {
   return (
