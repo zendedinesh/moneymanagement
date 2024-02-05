@@ -16,6 +16,8 @@ connectDB();
 
 // Load routes
 const auth = require('./routes/auth');
+ 
+// const bodyParser = require('body-parser'); // new added by me
 
 const app = express();
 
@@ -24,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));//explain
 app.use(cors())
 // Adding json-parser
 app.use(express.json());
+
+// app.use(bodyParser.json()); // new added by me
+// to use this method res.json()
 
 // Custome middleware Logger
 // app.use(logger);

@@ -44,7 +44,9 @@ interface tabledatatwo {
 }
 
 interface amountdata {
-    totalamount: number;
+    _id: null,
+    totalamount: number
+    totaldocuments: number
 }
 
 
@@ -100,6 +102,11 @@ interface money {
 
 const Dashboard: React.FC = () => {
 
+    const editexpensepage = useNavigate()
+    const editexpense = () => {
+        editexpensepage('/aditexpense')
+    }
+
 
     const [searchCategory, setSearchCategory] = useState('');
     const [searchExpenseDate, setSearchExpenseDate] = useState('');
@@ -108,7 +115,7 @@ const Dashboard: React.FC = () => {
     const deleteExpense = () => {
         const url = 'http://localhost:9001/api/v1/auth/expense';
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzExMDkwMiwiZXhwIjoxNzA3MTM0MzU4fQ.Wvl9r1Mm1E1ebCOEUua-58xkaZMX5hJiTYedFA4R57A'
         };
 
         const id = '65bcace5e16d876670958657';
@@ -145,7 +152,7 @@ const Dashboard: React.FC = () => {
         };
 
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzExMDkwMiwiZXhwIjoxNzA3MTM0MzU4fQ.Wvl9r1Mm1E1ebCOEUua-58xkaZMX5hJiTYedFA4R57A'
         };
 
         API.get(url, myparamobj, headers)?.subscribe({
@@ -166,25 +173,22 @@ const Dashboard: React.FC = () => {
 
     };
     console.log("datares :", datares)
-    useEffect(() => {
-        getlist()
-    }, [])
 
-    const [totalExpense, setTotalExpense] = useState<amountdata[]>([])
-
-
-
+    const [totalExpense, setTotalExpense] = useState<amountdata | null>(null)
+    console.log("totalexpens:1", totalExpense)
 
     const getTotalexpense = () => {
 
         const url = 'http://localhost:9001/api/v1/auth/totalmonthlyexpense';
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzExMDkwMiwiZXhwIjoxNzA3MTM0MzU4fQ.Wvl9r1Mm1E1ebCOEUua-58xkaZMX5hJiTYedFA4R57A'
         };
-        API.get(url, headers)?.subscribe({
+        API.get(url, {}, headers)?.subscribe({
             next(res: any) {
-                setTotalExpense(res.data);
+                setTotalExpense(res.data.totalcount[0]);
+                console.log("totalExpense :", res.data.totalcount[0])
                 console.log("res :", res)
+                console.log("res. data:", res.data)
                 // console.log("totalamount :", res.data)
 
                 // console.log("res.data.expensebycategory :", res.data.expensebycategory)
@@ -194,38 +198,44 @@ const Dashboard: React.FC = () => {
             }
             // complete:(complete: any)=> {
             //     console.log("complete", complete);
-            // }
+            // } 
         });
     }
     useEffect(() => {
         getTotalexpense()
-        console.log(getTotalexpense);
+        getlist()
+        deleteExpense()
     }, [])
 
 
-    const searchExpenses = (category: string, expensedate: string, description: string ) => {
+    const searchExpenses = (category: string, expensedate: string, description: string) => {
         const url = 'http://localhost:9001/api/v1/auth/expenses';
         const headers = {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzExMDkwMiwiZXhwIjoxNzA3MTM0MzU4fQ.Wvl9r1Mm1E1ebCOEUua-58xkaZMX5hJiTYedFA4R57A'
         };
 
         const params = new URLSearchParams({
             category: category || '',
             expensedate: expensedate || '',
             description: description || '',
-            skip: skip || '0', // Default value for pagination
-            take: take || '10' // Default value for pagination
+            // skip: skip || '0', // Default value for pagination
+            // take: take || '10' // Default value for pagination
         });
-        
+
 
         API.get(url, params, headers)?.subscribe({
             next(res: any) {
-                const data = res.json(); // Parse the response JSON
-                setSearchCategory(data.expensebycategory);
-                setSearchDescription(data.expensebycategory);
-                setSearchExpenseDate(data.expensebycategory);
+                console.log(res)
+                setSearchCategory(res.expensebycategory.category);
+                setSearchDescription(res.expensebycategory.description);
+                setSearchExpenseDate(res.expensebycategory.expenseDate);
+            },
+            error(error: any) {
+                console.error('Error:', error);
+
             }
         });
+
 
     };
 
@@ -426,11 +436,12 @@ const Dashboard: React.FC = () => {
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: "1", color: "white" }}>
                         <CurrencyRupeeIcon sx={{ fontSize: { xs: '21px', md: '30px' } }} />
-                        {totalExpense?.map((item, index) => (
-                            <Typography key={index} sx={{ fontSize: { xs: '20px', md: '30px' }, fontWeight: "800" }}>
-                                {String(item.totalamount)}
-                            </Typography>
-                        ))}
+
+                        {totalExpense ? <Typography sx={{ fontSize: { xs: '20px', md: '30px' }, fontWeight: "800" }}>
+                            {totalExpense.totalamount}
+                        </Typography> : null}
+
+
                     </Box>
 
                 </Box>
@@ -582,6 +593,7 @@ const Dashboard: React.FC = () => {
                     <Table >
                         <TableHead>
                             <TableRow>
+                                <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '15px' }, textWrap: { xs: 'nowrap' }, fontWeight: "600", color: 'white' }}>sr</TableCell>
                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '15px' }, textWrap: { xs: 'nowrap' }, fontWeight: "600", color: 'white' }}>Descreption</TableCell>
                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '15px' }, textWrap: { xs: 'nowrap' }, fontWeight: "600", color: 'white' }}> Expense Date</TableCell>
                                 <TableCell sx={{ fontSize: { xs: '12px', sm: '18px', md: '15px' }, textWrap: { xs: 'nowrap' }, fontWeight: "600", color: 'white' }}>Expense Amount </TableCell>
@@ -599,12 +611,16 @@ const Dashboard: React.FC = () => {
                             {
                                 datares.map((item, index) => (
                                     <TableRow key={index} >
+                                        <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{index + 1}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Description}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.ExpenseDate}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.ExpenseAmount}</TableCell>
                                         <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Categories}</TableCell>
-                                        <TableCell><Button variant='contained' color='success'>edit</Button></TableCell>
-                                        <TableCell><Button variant='contained' color='primary' onClick={deleteExpense}>delete</Button></TableCell>
+                                      
+                                        <TableCell > <Button href="your-url" onClick={() => editexpense()} variant="contained" color="success">
+                                            Edit
+                                        </Button></TableCell>
+                                        <TableCell><Button variant='contained' color='primary' onClick={deleteExpense}>Delete</Button></TableCell>
                                         {/* <TableCell sx={{ width: '5%' }}><TableCell sx={deletetext}>{item.Delete}</TableCell></TableCell> */}
                                         {/* <TableCell><Box sx={{ display: 'flex', gap: '20px', width: '36%' }}> <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'lightgreen', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}> <TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Edit}</TableCell></Box>
                                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'red', width: '50%', borderRadius: '10px', height: '25px', padding: '15px', marginTop: '12.5px' }}><TableCell sx={{ fontSize: { xs: '12px', sm: '17px', md: '15px' }, color: 'white' }}>{item.Delete}</TableCell></Box></Box></TableCell> */}

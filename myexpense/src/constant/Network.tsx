@@ -121,8 +121,43 @@ const deleteApi = (url: string, id: {}, headers?: {}) => {
     // console.log('catch err', err)
   }
 }
+const put = (url: string, paramsObj: {}, headers?: {}) => {
+  try {
+      return new Observable((observer: any) => {
+          const params = {...paramsObj};
+          console.log(headers)
+          // params['AppCode'] = '1';
+          // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
+           axios.put(url, params, {...headers})
+              .then((response) => {
+                  observer.next(response);
+                  observer.complete();
+              })
+              .catch((error) => {
+                  if (error && error.response && error.response.status === 401) {
+                      // refreshToken('put', url, params).subscribe(
+                      //     res => {
+                      //         observer.next(res);
+                      //         observer.complete();
+                      //     }, err => {
+                      //         observer.error(err);
+                      //         observer.complete();
+                      //     }
+                      // )
+                  } else {
+                      observer.error(error);
+                      observer.complete();
+                  }
+              }
+              )
+      });
+  } catch (err) {
+      // console.log('catch err', err)
+  }
+}
 export const API = {
   get,
   post,
-  deleteApi
+  deleteApi,
+  put
 }

@@ -11,7 +11,7 @@ router.get('/me', protecter, getMe);
 router.post('/expense', protecter, addexpenseTomongodb);
 router.get('/expense', protecter, getmyexpenses);
 router.get('/expenses', protecter, getexpensebycategories);
-router.put('/expense', protecter, editbyuser);
+router.put('/expenseedit', protecter, editbyuser);
 router.delete('/expense', protecter, deletebyuser);
 router.put('/editprofile', protecter, editprofile);
 router.post('/addsalary', protecter, addusersalary);

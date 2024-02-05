@@ -55,7 +55,7 @@ const Addexpense: React.FC = () => {
       const url = 'http://localhost:9001/api/v1/auth/expense';
 
       const headers = {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzA0MzkzNywiZXhwIjoxNzA3MDY3MzkzfQ.VKWn7srQFcA8-KVu8ciQgv6Zm8dI0iAGJHUZnKdtlEI'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmM5Y2M1YTMyYjgxOTk5ZTlkZWM4NyIsImlhdCI6MTcwNzExMDkwMiwiZXhwIjoxNzA3MTM0MzU4fQ.Wvl9r1Mm1E1ebCOEUua-58xkaZMX5hJiTYedFA4R57A'
       };
       API.post(url, expensestuff, headers)?.subscribe({
         next(res: any) {

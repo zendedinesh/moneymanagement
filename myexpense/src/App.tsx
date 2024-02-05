@@ -10,10 +10,12 @@ import Login from './pages/login/Login';
 import Checkmoney from './pages/checkmoney/Checkmoney';
 // import Expenselist from './component/expenselist/Expenselist';
 import Addexpense from './pages/addexpense/Addexpense';
-import Aditexpense from './pages/aditexpense/Aditexpense';
 import Register from './pages/register/Register';
-import Layout from './pages/layout/Layout';
+// import Layout from './pages/layout/Layout';
+import Layout from './pages/Layout/Layout';
 import Dashboard from './pages/dashboard/Dashboard';
+import EditExpenseForm from './pages/aditexpense/EditExpenseForm';
+
 
      
 function App() {
@@ -22,15 +24,16 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+
         <Route path='/' element={<Layout />} >
           <Route index element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
-         
+          <Route path='/aditexpense' element={<EditExpenseForm/>}/>
           {/* <Route path='addexpense' element={<Addexpense />} /> */}
           <Route path='checkmoney' element={<Checkmoney />} />
           {/* <Route path='/expenselist' element={<Expenselist/>}/> */}
           <Route path='addexpensein' element={<Addexpense />} />
-          <Route path='aditexpense' element={<Aditexpense />} />
+         
           {/* <Route path='Dashboard' element={<Sidebar/>}/> */}
         </Route>
 

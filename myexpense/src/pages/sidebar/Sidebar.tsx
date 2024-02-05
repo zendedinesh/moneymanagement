@@ -44,9 +44,9 @@ const Sidebar: React.FC<SideBarProps> = ({ }) => {
         if (item.name === 'Check Money') {
             navigatethroughnames('/checkmoney')
         }
-        // if (item.name === 'Adit expense') {
-        //     navigatethroughnames('/aditexpense')
-        // }
+        if (item.name === 'Adit expense') {
+            navigatethroughnames('/aditexpense')
+        }
         // if (item.name === 'Expenselist') {
         //     navigatethroughnames('/expenselist')
         // }
@@ -75,10 +75,10 @@ const Sidebar: React.FC<SideBarProps> = ({ }) => {
         //     name: 'Check Money',
         //     myicon: <CurrencyExchangeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
         // },
-        // {
-        //     name: 'Adit expense',
-        //     myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
-        // },
+        {
+            name: 'Adit expense',
+            myicon: <CurrencyRupeeIcon sx={{ fontSize: { md: '28px', xs: "30px", sm: '75px' }, color: 'white' }} />,
+        },
         {
             name: 'Register',
             myicon: <LogoutIcon sx={{ fontSize: '28px', color: 'white' }} />,

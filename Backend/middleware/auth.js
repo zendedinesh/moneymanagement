@@ -7,7 +7,7 @@ const User = require('../models/User');
 exports.protecter = asyncHandler(async(req, res, next) => {
     let token;
 
-    // console.log(req);
+    console.log("req from middleware :",req);
 
     // get token from headers
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
