@@ -33,8 +33,8 @@ const UserSchema = new mongoose.Schema({
     restePasswordExpire: Date,
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now 
+    } 
 });
 
 // Encript password 

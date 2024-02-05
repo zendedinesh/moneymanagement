@@ -41,9 +41,9 @@ const Sidebar: React.FC<SideBarProps> = ({ }) => {
         if (item.name === 'Add expense') {
             navigatethroughnames('/addexpensein');
         }
-        if (item.name === 'Check Money') {
-            navigatethroughnames('/checkmoney')
-        }
+        // if (item.name === 'Check Money') {
+        //     navigatethroughnames('/checkmoney')
+        // }
         if (item.name === 'Adit expense') {
             navigatethroughnames('/aditexpense')
         }

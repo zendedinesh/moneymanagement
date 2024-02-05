@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const Addusersalary = new mongoose.Schema({
-    MonthlySalary: {
+    monthlySalary: {
         type: String,
         required: true
     }
 })
-module.exports = mongoose.model("Addusersmonthlysalary", Addusersalary)
+module.exports = mongoose.model("Addusersalary", Addusersalary)

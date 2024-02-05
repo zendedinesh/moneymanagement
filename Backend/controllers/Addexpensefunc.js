@@ -83,9 +83,9 @@ exports.editbyuser = asyncHandler(async (req, res, next) => {
   const { Description, ExpenseDate, ExpenseAmount, Categories } = req.body;
   console.log(req.body)
   const { id } = req.query;
-  console.log("id:",id)
-  console.log( "req.query:",req.query)
-  console.log( "req:",req)
+  console.log("id:", id)
+  console.log("req.query:", req.query)
+  console.log("req:", req)
   console.log("expenseid", id)
 
   const editmyexpense = await ExpenseSchema.findByIdAndUpdate(id, {
@@ -101,7 +101,7 @@ exports.editbyuser = asyncHandler(async (req, res, next) => {
 
 //5)deletexpensebyuser
 exports.deletebyuser = asyncHandler(async (req, res, next) => {
-  const {  id } = req.query
+  const { id } = req.query
   console.log("paramsObj :", id)
   console.log("id :", id)
   const deleteexpense = await ExpenseSchema.findByIdAndDelete(id)
@@ -125,11 +125,12 @@ exports.editprofile = asyncHandler(async (req, res, next) => {
 })
 
 exports.addusersalary = asyncHandler(async (req, res, next) => {
+  const { monthlysalary } = req.body;
 
   console.log("add salary 1")
-  const { Monthlysalary } = req.body
+  console.log("monthlysalary :", monthlysalary)
   const addsalary = await Addusersalary.create({
-    Monthlysalary
+    monthlySalary: monthlysalary
   });
   console.log("add salary 2")
   res.status(200).json({ success: true, addsalary })
@@ -137,7 +138,7 @@ exports.addusersalary = asyncHandler(async (req, res, next) => {
 
 exports.totalmonthlyexpense = asyncHandler(async (req, res, next) => {
 
- 
+
   const currentDate = new Date();
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
