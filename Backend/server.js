@@ -16,6 +16,8 @@ connectDB();
 
 // Load routes
 const auth = require('./routes/auth');
+// transaction in mongodb
+const transition = require('./routes/transition');
  
 // const bodyParser = require('body-parser'); // new added by me
 
@@ -42,6 +44,7 @@ app.use(cookieParser());  //Explain
 
 // add route
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/transition',transition)
 // app.use('/api/v1/addexpense', auth)
 
 // Add error middlewear
